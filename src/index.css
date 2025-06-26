@@ -50,53 +50,58 @@
   }
 
   .dark {
-    --background: 222 47% 11%;
+    /* Base */
+    --background: 224 71.4% 4.1%; /* Solid dark blue for the body background */
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 11%;
+    /* Glassmorphic Elements */
+    --card: 224 71.4% 11% / 0.5;
     --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 11%;
+    --popover: 224 71.4% 11% / 0.7;
     --popover-foreground: 210 40% 98%;
 
+    /* Colors */
     --primary: 172 66% 45%;
     --primary-foreground: 222 47% 11%;
-
-    --secondary: 217 33% 17%;
+    --secondary: 217 33% 17% / 0.8;
     --secondary-foreground: 210 40% 98%;
-
-    --muted: 217 33% 17%;
+    --muted: 217 33% 17% / 0.5;
     --muted-foreground: 215 20% 65%;
-
-    --accent: 217 33% 17%;
+    --accent: 217 33% 17% / 0.7;
     --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 63% 31%;
+    --destructive: 0 63% 31% / 0.8;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 217 33% 22%;
-    --input: 217 33% 22%;
+    /* Borders & Inputs */
+    --border: 217 33% 22% / 0.6;
+    --input: 217 33% 22% / 0.5;
     --ring: 172 66% 45%;
 
     /* Sidebar */
-    --sidebar-background: 222 47% 9%;
+    --sidebar-background: 224 71.4% 11% / 0.4;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 172 66% 45%;
     --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent: 217 33% 17% / 0.8;
     --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 17%;
+    --sidebar-border: 217 33% 17% / 0.5;
     --sidebar-ring: 172 66% 45%;
   }
 }
 
-@layer utilities {
-  .font-body {
-    font-family: var(--font-body);
-  }
-
-  .font-heading {
-    font-family: var(--font-heading);
+@layer components {
+  /* Apply glassmorphic effect to key components in dark mode */
+  .dark .bg-card,
+  .dark .bg-popover,
+  .dark .bg-sidebar,
+  .dark .bg-background,
+  .dark .bg-muted,
+  .dark .border-t,
+  .dark .border-b,
+  .dark .border-r,
+  .dark .border {
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
   }
 }
 
@@ -108,8 +113,29 @@
   body {
     @apply bg-background text-foreground font-body; /* Apply body font by default */
   }
+  
+  body.dark {
+    background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 52% 99%, hsla(355, 98%, 61%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 10% 29%, hsla(256, 96%, 61%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 97% 96%, hsla(38, 98%, 61%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 33% 50%, hsla(222, 98%, 61%, 0.1) 0px, transparent 50%),
+      radial-gradient(at 79% 53%, hsla(343, 98%, 61%, 0.1) 0px, transparent 50%);
+    background-color: hsl(var(--background));
+  }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading; /* Apply heading font to heading elements */
+  }
+}
+
+@layer utilities {
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .font-heading {
+    font-family: var(--font-heading);
   }
 }
