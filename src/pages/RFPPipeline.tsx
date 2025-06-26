@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 
 // Icons
 import { List, Kanban, MoreHorizontal, ArrowUpDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Type Definitions (matching KanbanBoard component)
 type ColumnId = 'new' | 'in-progress' | 'submitted' | 'won' | 'lost';
@@ -85,9 +86,12 @@ const RFPPipeline = () => {
 
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40">
+    <div className="flex min-h-screen w-full">
       <CollapsibleSidebar isCollapsed={isCollapsed} onToggle={handleToggleSidebar} />
-      <div className="flex flex-1 flex-col">
+      <div className={cn(
+        "flex flex-1 flex-col transition-all duration-300 ease-in-out",
+        isCollapsed ? "md:ml-20" : "md:ml-64"
+      )}>
         <AppHeader onNewRfpClick={handleNewRfpClick} />
         <main className="flex-1 p-4 sm:px-6 sm:py-0 flex flex-col gap-4">
           <div className="flex items-center pt-4">
@@ -109,7 +113,7 @@ const RFPPipeline = () => {
             </ToggleGroup>
           </div>
           
-          <div className="flex-1">
+          <div className="flex-1 pb-4">
             {viewMode === 'kanban' ? (
               <KanbanBoard initialCards={rfpData} onCardMove={handleCardMove} />
             ) : (
