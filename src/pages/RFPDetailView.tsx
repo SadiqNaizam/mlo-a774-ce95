@@ -32,6 +32,7 @@ import {
 } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
 
 // Mock data for a single RFP
 const rfpDetail = {
@@ -43,7 +44,7 @@ const rfpDetail = {
   dueDate: '2024-12-15',
   submittedDate: 'N/A',
   progress: 65,
-  summary: 'A comprehensive proposal to overhaul Innovatech\'s customer relationship management system with our cloud-native platform, focusing on scalability and user experience.',
+  summary: `A comprehensive proposal to overhaul Innovatech's customer relationship management system with our cloud-native platform, focusing on scalability and user experience.`,
   documents: [
     { id: 'doc1', name: 'RFP_Requirements.pdf', size: '2.5 MB', uploaded: '2024-10-26' },
     { id: 'doc2', name: 'Technical_Specifications_v1.docx', size: '1.8 MB', uploaded: '2024-10-28' },
@@ -76,12 +77,15 @@ const RFPDetailView = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40">
+    <div className="flex min-h-screen w-full">
       <CollapsibleSidebar isCollapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
-      <div className={`flex flex-col flex-1 transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'md:pl-20' : 'md:pl-64'}`}>
+      <div className={cn(
+        'flex flex-col flex-1 transition-all duration-300 ease-in-out',
+        isSidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
+      )}>
         <AppHeader onNewRfpClick={handleNewRfpClick} />
         
-        <main className="flex-1 p-4 sm:px-6 md:p-8 space-y-8">
+        <main className="flex-1 p-4 sm:px-6 md:p-8 space-y-8 overflow-y-auto">
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">{rfpDetail.title}</h1>
@@ -201,7 +205,7 @@ const RFPDetailView = () => {
                     <CardHeader>
                         <CardTitle>Activity Log</CardTitle>
                         <CardDescription>A chronological history of events for this RFP.</CardDescription>
-                    </CardHeader>
+                    </Header>
                     <CardContent>
                         <ul className="space-y-4">
                            {rfpDetail.history.map(item => (
