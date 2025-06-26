@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Icons
 import { Briefcase, Target, DollarSign, CheckCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const Dashboard = () => {
   console.log('Dashboard page loaded');
@@ -39,9 +40,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40">
+    <div className="flex min-h-screen w-full">
       <CollapsibleSidebar isCollapsed={isSidebarCollapsed} onToggle={handleToggleSidebar} />
-      <div className="flex flex-1 flex-col">
+      <div className={cn(
+        "flex flex-1 flex-col transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
+      )}>
         <AppHeader onNewRfpClick={handleNewRfp} />
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
           <div className="grid gap-6">
