@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,28 +16,34 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 
-const App = () => (
-<QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-    <Toaster />
-    <Sonner />
-    <BrowserRouter>
-        <Routes>
+const App = () => {
+  useEffect(() => {
+    // Apply dark theme by default
+    document.documentElement.classList.add('dark');
+    return () => {
+      document.documentElement.classList.remove('dark');
+    };
+  }, []);
 
-
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/client-management" element={<ClientManagement />} />
-          <Route path="/r-f-p-detail" element={<RFPDetailView />} />
-          <Route path="/r-f-p-pipeline" element={<RFPPipeline />} />
-          {/* catch-all */}
-          <Route path="*" element={<NotFound />} />
-
-
-        </Routes>
-    </BrowserRouter>
-    </TooltipProvider>
-</QueryClientProvider>
-);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/client-management" element={<ClientManagement />} />
+            <Route path="/r-f-p-detail" element={<RFPDetailView />} />
+            <Route path="/r-f-p-pipeline" element={<RFPPipeline />} />
+            {/* catch-all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+      </BrowserRouter>
+      </TooltipProvider>
+  </QueryClientProvider>
+  );
+};
 
 export default App;
