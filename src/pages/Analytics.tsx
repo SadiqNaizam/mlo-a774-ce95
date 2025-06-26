@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 // Recharts for additional chart types
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { cn } from '@/lib/utils';
 
 // Placeholder data for additional charts to showcase variety
 const cycleTimeData = [
@@ -55,11 +56,14 @@ const Analytics = () => {
   };
 
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[auto_1fr]">
+    <div className="flex min-h-screen w-full">
       <CollapsibleSidebar isCollapsed={isCollapsed} onToggle={handleToggleSidebar} />
-      <div className="flex flex-col bg-muted/40">
+      <div className={cn(
+        "flex flex-1 flex-col transition-all duration-300 ease-in-out",
+        isCollapsed ? "md:ml-20" : "md:ml-64"
+      )}>
         <AppHeader onNewRfpClick={handleNewRfp} />
-        <main className="flex flex-1 flex-col gap-4 p-4 sm:p-6">
+        <main className="flex flex-1 flex-col gap-4 p-4 sm:p-6 overflow-y-auto">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <h1 className="text-lg font-semibold md:text-2xl">Analytics & Reporting</h1>
             <div className="flex items-center gap-2">
