@@ -43,6 +43,7 @@ import { Label } from '@/components/ui/label';
 
 // Icons
 import { PlusCircle, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // Client data type and mock data
 interface Client {
@@ -121,12 +122,15 @@ const ClientManagement = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40">
+    <div className="flex min-h-screen w-full">
       <CollapsibleSidebar isCollapsed={isSidebarCollapsed} onToggle={handleToggleSidebar} />
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 flex-1">
+      <div className={cn(
+        "flex flex-1 flex-col transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "md:ml-20" : "md:ml-64"
+      )}>
         <AppHeader onNewRfpClick={handleNewRfpClick} />
-        <main className="flex-1 flex flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-            <div className="flex items-center">
+        <main className="flex-1 flex flex-col gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 overflow-y-auto">
+            <div className="flex items-center pt-4">
                 <h1 className="text-2xl font-semibold">Client Management</h1>
                 <div className="ml-auto flex items-center gap-2">
                     <Button size="sm" onClick={handleAddNewClick}>
@@ -192,44 +196,4 @@ const ClientManagement = () => {
         <AppFooter />
       </div>
 
-       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>{editingClient ? 'Edit Client' : 'Add New Client'}</DialogTitle>
-            <DialogDescription>
-              {editingClient ? 'Update the details for this client.' : 'Fill in the information for the new client.'}
-            </DialogDescription>
-          </DialogHeader>
-          <form id="client-form" onSubmit={handleFormSubmit}>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input id="name" name="name" defaultValue={editingClient?.name || ''} className="col-span-3" required />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="contactPerson" className="text-right">
-                  Contact
-                </Label>
-                <Input id="contactPerson" name="contactPerson" defaultValue={editingClient?.contactPerson || ''} className="col-span-3" required />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="email" className="text-right">
-                  Email
-                </Label>
-                <Input id="email" name="email" type="email" defaultValue={editingClient?.email || ''} className="col-span-3" required />
-              </div>
-            </div>
-          </form>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-            <Button type="submit" form="client-form">Save changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-};
-
-export default ClientManagement;
+       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>\n        <DialogContent className=\"sm:max-w-[425px]\">\n          <DialogHeader>\n            <DialogTitle>{editingClient ? 'Edit Client' : 'Add New Client'}</DialogTitle>\n            <DialogDescription>\n              {editingClient ? 'Update the details for this client.' : 'Fill in the information for the new client.'}\n            </DialogDescription>\n          </DialogHeader>\n          <form id=\"client-form\" onSubmit={handleFormSubmit}>\n            <div className=\"grid gap-4 py-4\">\n              <div className=\"grid grid-cols-4 items-center gap-4\">\n                <Label htmlFor=\"name\" className=\"text-right\">\n                  Name\n                </Label>\n                <Input id=\"name\" name=\"name\" defaultValue={editingClient?.name || ''} className=\"col-span-3\" required />\n              </div>\n              <div className=\"grid grid-cols-4 items-center gap-4\">\n                <Label htmlFor=\"contactPerson\" className=\"text-right\">\n                  Contact\n                </Label>\n                <Input id=\"contactPerson\" name=\"contactPerson\" defaultValue={editingClient?.contactPerson || ''} className=\"col-span-3\" required />\n              </div>\n              <div className=\"grid grid-cols-4 items-center gap-4\">\n                <Label htmlFor=\"email\" className=\"text-right\">\n                  Email\n                </Label>\n                <Input id=\"email\" name=\"email\" type=\"email\" defaultValue={editingClient?.email || ''} className=\"col-span-3\" required />\n              </div>\n            </div>\n          </form>\n          <DialogFooter>\n            <Button variant=\"outline\" onClick={() => setIsDialogOpen(false)}>Cancel</Button>\n            <Button type=\"submit\" form=\"client-form\">Save changes</Button>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n    </div>\n  );\n};\n\nexport default ClientManagement;
