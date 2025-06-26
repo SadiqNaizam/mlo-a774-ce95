@@ -88,14 +88,14 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ initialCards = DEFAULT_CARDS,
   };
 
   return (
-    <div className="flex gap-4 p-4 overflow-x-auto bg-gray-100/50 dark:bg-gray-900/50 rounded-lg min-h-[600px]">
+    <div className="flex gap-4 p-4 overflow-x-auto bg-background/30 rounded-lg min-h-[600px]">
       {DEFAULT_COLUMNS.map((column) => (
         <div
           key={column.id}
           ref={(el) => columnRefs.current.set(column.id, el)}
           className="w-72 flex-shrink-0"
         >
-          <div className="bg-gray-200 dark:bg-gray-800 p-3 rounded-t-lg sticky top-0 z-10">
+          <div className="bg-muted/50 backdrop-blur-sm p-3 rounded-t-lg sticky top-0 z-10">
             <h3 className="text-sm font-semibold uppercase tracking-wider">{column.title}</h3>
           </div>
           <div className="p-2 space-y-3 h-full overflow-y-auto">
@@ -122,14 +122,14 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ initialCards = DEFAULT_CARDS,
                       <CardTitle className="text-base font-semibold">{card.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="p-3 pt-0 text-sm">
-                      <p className="text-gray-500 dark:text-gray-400">{card.client}</p>
+                      <p className="text-muted-foreground">{card.client}</p>
                       <Badge variant="secondary" className="mt-2">
                         ${card.value.toLocaleString()}
                       </Badge>
                     </CardContent>
                   </Card>
                 </motion.div>
-              ))}
+              ))พัก
           </div>
         </div>
       ))}
